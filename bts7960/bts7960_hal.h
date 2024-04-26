@@ -14,10 +14,11 @@
 ///       the selected slew resistor value, see the datasheet section `4.2.2 Switching Times` for
 ///       more details.
 
+#include <stdbool.h>
 #include <stdint.h>
 
 /// Declaration of user-defined BTS7960 HAL structure.
-typedef struct BTS7960_HAL_t BTS7960_HAL;
+typedef struct BTS7960_HAL_impl BTS7960_HAL;
 
 /// Initializes the hardware required for BTS7960 to operate.
 /// @param[in] hal Initialized BTS7960 HAL instance.
