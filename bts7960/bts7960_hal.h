@@ -20,9 +20,6 @@
 /// Declaration of user-defined BTS7960 HAL structure.
 typedef struct BTS7960_HAL_impl BTS7960_HAL;
 
-/// Default current sense ratio.
-static const uint16_t BTS7960_DEFAULT_CURRENT_SENSE_RATIO = 8500;
-
 /// Initializes the hardware required for BTS7960 to operate.
 /// @param[in] hal Initialized BTS7960 HAL instance.
 /// @retval true The hardware was configured successfully.
@@ -54,7 +51,7 @@ bool BTS7960_HAL_getEnablePinState(BTS7960_HAL *const hal, bool *const state);
 /// @param[out] voltage Voltage on the current sense pin, in millivolts.
 /// @retval true The voltage has been measured successfully.
 /// @retval false Couldn't measure the current sense voltage.
-bool BTS7960_HAL_measureCurrentSenseVoltage(BTS7960_HAL *const hal, uint16_t *const voltage);
+bool BTS7960_HAL_measureCurrentSenseVoltage(BTS7960_HAL *const hal, uint32_t *const voltage);
 
 /// Sets the PWM signal duty cycle percentage.
 /// @param[in] hal Initialized BTS7960 HAL instance.
