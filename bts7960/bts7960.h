@@ -37,20 +37,23 @@
 #include "bts7960_hal.h"
 
 /// BTS7960 instance.
+/// Voltages are in millivolts, unless stated otherwise.
 typedef struct BTS7960_t {
   BTS7960_HAL *hal;                   ///< Pointer to a HAL instance.
   uint32_t current_sense_resistance;  ///< Current sense resistance, in ohms.
-  uint32_t fault_voltage;           ///< Voltage on current sense pin when driver is in fault mode,
-                                    ///< in millivolts.
-  uint16_t current_sense_ratio;     ///< Current sense ratio.
-  uint16_t current_in_fault_mode;   ///< Current in fault mode, in microamps.
-  uint8_t fault_voltage_tolerance;  ///< Fault voltage tolerance, in percent.
-  bool is_initialized;              ///< Flag set by `Initialize` to indicate readiness.
+  uint32_t fault_voltage;          ///< Voltage on current sense pin when driver is in fault mode.
+  uint32_t fault_voltage_epsilon;  ///< Fault voltage absolute tolerance.
+  uint32_t fault_voltage_min;      ///< Minimum voltage on status pin to be considered as a fault.
+  uint32_t current_sense_multiplier;  ///< Current sense multiplier for measured voltage.
+  uint16_t current_sense_ratio;       ///< Current sense ratio.
+  uint16_t current_in_fault_mode;     ///< Current in fault mode, in microampere.
+  uint8_t fault_voltage_tolerance;    ///< Fault voltage relative tolerance (in percent).
+  bool is_initialized;                ///< Flag set by `Initialize` to indicate readiness.
 } BTS7960;
 
 /// BTS7960 state, returned by BTS7960_checkState() function.
 typedef struct BTS7960_State_t {
-  uint16_t current;  ///< Current flowing through the driver, in milliamperes.
+  uint32_t current;  ///< Current flowing through the driver, in milliamperes.
   bool fault;        ///< If true, the driver is currently in fault mode.
 } BTS7960_Status;
 
@@ -80,13 +83,13 @@ static const uint16_t BTS7960_DEFAULT_CURRENT_IN_FAULT_MODE = 4500;
 /// Default fault voltage tolerance, in percent.
 static const uint8_t BTS7960_DEFAULT_FAULT_VOLTAGE_TOLERANCE = 5;
 
-/// Initialized the driver structure and underlying hardware with default configuration.
-/// @important You should call this function first.
+/// Initializes the driver structure and underlying hardware with default configuration.
 /// @important Provided HAL instance should be initialized manually by the user
 ///            before passing it to this function.
 /// @important If custom hardware is used instead of the popular BTS7960 board in stock
 ///            configuration, use BTS7960_advancedInitialize to set the correct hardware
-///            configuration, or change the BTS7960_DEFAULT_* constants values.
+///            configuration, or change the BTS7960_DEFAULT_* constants values and recompile the
+///            library.
 /// @param[in] bts Pointer to BTS7960 driver instance.
 /// @param[in] hal Pointer to user-provided HAL instance.
 /// @retval BTS7960_OK If initialization was successful.
@@ -95,7 +98,6 @@ static const uint8_t BTS7960_DEFAULT_FAULT_VOLTAGE_TOLERANCE = 5;
 BTS7960_Result BTS7960_initialize(BTS7960 *const bts, BTS7960_HAL *const hal);
 
 /// Initializes the driver structure and underlying hardware with custom BTS7960 configuration.
-/// @important You should call this function first.
 /// @important Provided HAL instance should be initialized manually by the user
 ///            before passing it to this function.
 /// @param[in] bts Pointer to BTS7960 driver instance.
@@ -151,7 +153,7 @@ BTS7960_Result BTS7960_isEnabled(BTS7960 const *const bts, bool *const status);
 /// Measures the current flowing through BTS7960 driver and returns it (in milliamps).
 /// Also informs if a fault happened.
 /// Output parameters are set to 0 on error, except in BTS7960_FAULT_DETECTED case, where the
-/// current is set to 0 but the flag remains true.
+/// current is set to 0 but the fault flag remains true.
 /// @param[in] bts Pointer to BTS7960 driver instance.
 /// @param[out] status Current status of the driver.
 /// @retval BTS7960_OK If getting the status succeeded.

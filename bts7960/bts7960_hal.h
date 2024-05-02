@@ -20,6 +20,14 @@
 /// Declaration of user-defined BTS7960 HAL structure.
 typedef struct BTS7960_HAL_impl BTS7960_HAL;
 
+#ifdef BTS7960_ENABLE_FREQUENCY_CONTROL
+typedef enum {
+  BTS7960_HAL_FREQUENCY_OK,
+  BTS7960_HAL_FREQUENCY_TOO_LOW,
+  BTS7960_HAL_FREQUENCY_TOO_HIGH,
+} BTS7960_HAL_FrequencyStatus;
+#endif
+
 /// Initializes the hardware required for BTS7960 to operate.
 /// @param[in] hal Initialized BTS7960 HAL instance.
 /// @retval true The hardware was configured successfully.
@@ -71,9 +79,11 @@ bool BTS7960_HAL_getPwmSignalPercentage(BTS7960_HAL *const hal, uint8_t *const p
 /// Sets the PWM signal frequency.
 /// @param[in] hal Initialized BTS7960 HAL instance.
 /// @param[in] frequency Frequency of the PWM signal.
-/// @retval true PWM signal frequency has been set.
-/// @retval false Couldn't set the PWM signal frequency.
-bool BTS7960_HAL_setPwmSignalFrequency(BTS7960_HAL *const hal, uint32_t const frequency);
+/// @retval BTS7960_HAL_FREQUENCY_OK PWM signal frequency has been set.
+/// @retval BTS7960_HAL_FREQUENCY_TOO_LOW Requested PWM signal frequency is too low.
+/// @retval BTS7960_HAL_FREQUENCY_TOO_HIGH Requested PWM signal frequency is too high.
+BTS7960_FrequencyStatus BTS7960_HAL_setPwmSignalFrequency(BTS7960_HAL *const hal,
+                                                          uint32_t const frequency);
 
 /// Gets the PWM signal frequency.
 /// @param[in] hal Initialized BTS7960 HAL instance.
