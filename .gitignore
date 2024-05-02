@@ -53,3 +53,9 @@ dkms.conf
 
 # Meson build directory
 builddir/
+
+# Compilation database
+compile_commands.json
+
+# Clangd cache
+.cache/
