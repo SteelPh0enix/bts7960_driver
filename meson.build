@@ -15,14 +15,42 @@ project(
 
 bts7960_sources = files('./bts7960/bts7960.c')
 bts7960_hals = {
-  'mock': ['./bts7960/hal-impls/mock.c'] 
+  'mock': {
+    'sources': ['./bts7960/hal-impls/mock.c'],
+  },
+  'mock_freq': {
+    'sources': ['./bts7960/hal-impls/mock.c'],
+    'defines': ['BTS7960_ENABLE_FREQUENCY_CONTROL'],
+  },
+  'mock_no_asserts': {
+    'sources': ['./bts7960/hal-impls/mock.c'],
+    'defines': ['BTS7960_DISABLE_ASSERTS'],
+  },
+  'mock_freq_no_asserts': {
+    'sources': ['./bts7960/hal-impls/mock.c'],
+    'defines': ['BTS7960_DISABLE_ASSERTS', 'BTS7960_ENABLE_FREQUENCY_CONTROL'],
+  },
 }
 
 bts7960_instances = {}
-foreach hal_name, hal_sources: bts7960_hals
+foreach hal_name, hal_props : bts7960_hals
+  hal_sources = hal_props['sources']
+  c_cpp_args = []
+
+  if 'defines' in hal_props
+    hal_defines = hal_props['defines']
+    foreach define : hal_defines
+      c_cpp_args += ['-D' + define]
+    endforeach
+  endif
+
   bts7960_instances += {
-    hal_name: library(f'bts7960_@hal_name@',
-                     bts7960_sources + hal_sources,
-                     include_directories: ['./bts7960/'])
-    }
+    hal_name: library(
+      f'bts7960_@hal_name@',
+      bts7960_sources + hal_sources,
+      include_directories: ['./bts7960/'],
+      c_args: c_cpp_args,
+      cpp_args: c_cpp_args,
+    ),
+  }
 endforeach
