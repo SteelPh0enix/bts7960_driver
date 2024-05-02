@@ -3,20 +3,24 @@
 #include <stddef.h>
 
 #ifndef BTS7960_DISABLE_ASSERTS
-#include <assert.h>
+  #include <assert.h>
 #endif
 
 BTS7960_Result BTS7960_initialize(BTS7960 *const bts, BTS7960_HAL *const hal) {
-  return BTS7960_advancedInitialize(
-      bts, hal, BTS7960_DEFAULT_CURRENT_SENSE_RESISTANCE, BTS7960_DEFAULT_CURRENT_SENSE_RATIO,
-      BTS7960_DEFAULT_CURRENT_IN_FAULT_MODE, BTS7960_DEFAULT_FAULT_VOLTAGE_TOLERANCE);
+  return BTS7960_advancedInitialize(bts,
+                                    hal,
+                                    BTS7960_DEFAULT_CURRENT_SENSE_RESISTANCE,
+                                    BTS7960_DEFAULT_CURRENT_SENSE_RATIO,
+                                    BTS7960_DEFAULT_CURRENT_IN_FAULT_MODE,
+                                    BTS7960_DEFAULT_FAULT_VOLTAGE_TOLERANCE);
 }
 
-BTS7960_Result BTS7960_advancedInitialize(BTS7960 *const bts, BTS7960_HAL *const hal,
-                                          const uint32_t current_sense_resistance,
-                                          const uint16_t current_sense_ratio,
-                                          const uint16_t current_in_fault_mode,
-                                          const uint8_t fault_voltage_tolerance) {
+BTS7960_Result BTS7960_advancedInitialize(BTS7960 *const     bts,
+                                          BTS7960_HAL *const hal,
+                                          uint32_t const     current_sense_resistance,
+                                          uint16_t const     current_sense_ratio,
+                                          uint16_t const     current_in_fault_mode,
+                                          uint8_t const      fault_voltage_tolerance) {
 #ifndef BTS7960_DISABLE_ASSERTS
   assert(bts);
   assert(hal);
@@ -33,18 +37,17 @@ BTS7960_Result BTS7960_advancedInitialize(BTS7960 *const bts, BTS7960_HAL *const
     return BTS7960_HAL_ERROR;
   }
 
-  bts->hal = hal;
+  bts->hal                      = hal;
   bts->current_sense_resistance = current_sense_resistance;
   // U = I * R, current in microamps -> /10^3 to convert result to millivolts
-  bts->fault_voltage = current_sense_resistance * ((uint32_t)current_in_fault_mode) / 1000;
-  bts->fault_voltage_epsilon = bts->fault_voltage * ((uint32_t)fault_voltage_tolerance) / 100;
-  bts->fault_voltage_min = bts->fault_voltage - bts->fault_voltage_epsilon;
-  bts->current_sense_multiplier =
-      (((uint32_t)current_sense_ratio) * current_sense_resistance / 1000);
-  bts->current_sense_ratio = current_sense_ratio;
-  bts->current_in_fault_mode = current_in_fault_mode;
-  bts->fault_voltage_tolerance = fault_voltage_tolerance;
-  bts->is_initialized = true;
+  bts->fault_voltage            = current_sense_resistance * ((uint32_t)current_in_fault_mode) / 1000;
+  bts->fault_voltage_epsilon    = bts->fault_voltage * ((uint32_t)fault_voltage_tolerance) / 100;
+  bts->fault_voltage_min        = bts->fault_voltage - bts->fault_voltage_epsilon;
+  bts->current_sense_multiplier = (((uint32_t)current_sense_ratio) * current_sense_resistance / 1000);
+  bts->current_sense_ratio      = current_sense_ratio;
+  bts->current_in_fault_mode    = current_in_fault_mode;
+  bts->fault_voltage_tolerance  = fault_voltage_tolerance;
+  bts->is_initialized           = true;
 
   return BTS7960_OK;
 }
@@ -62,16 +65,16 @@ BTS7960_Result BTS7960_deInitialize(BTS7960 *const bts) {
     return BTS7960_HAL_ERROR;
   }
 
-  bts->is_initialized = false;
-  bts->hal = NULL;
+  bts->is_initialized           = false;
+  bts->hal                      = NULL;
   bts->current_sense_resistance = 0;
-  bts->fault_voltage = 0;
-  bts->fault_voltage_epsilon = 0;
-  bts->fault_voltage_min = 0;
+  bts->fault_voltage            = 0;
+  bts->fault_voltage_epsilon    = 0;
+  bts->fault_voltage_min        = 0;
   bts->current_sense_multiplier = 0;
-  bts->current_sense_ratio = 0;
-  bts->current_in_fault_mode = 0;
-  bts->fault_voltage_tolerance = 0;
+  bts->current_sense_ratio      = 0;
+  bts->current_in_fault_mode    = 0;
+  bts->fault_voltage_tolerance  = 0;
 
   return BTS7960_OK;
 }
@@ -133,7 +136,7 @@ BTS7960_Result BTS7960_getStatus(BTS7960 const *const bts, BTS7960_Status *const
   assert(status);
 #endif
 
-  status->fault = false;
+  status->fault   = false;
   status->current = 0;
 
   if (!bts->is_initialized) {
@@ -208,33 +211,30 @@ BTS7960_Result BTS7960_getPowerPercentage(BTS7960 const *const bts, uint8_t *con
 
 #ifdef BTS7960_ENABLE_FREQUENCY_CONTROL
 BTS7960_Result BTS7960_setOutputFrequency(BTS7960 *const bts, uint32_t const frequency) {
-#ifndef BTS7960_DISABLE_ASSERTS
+  #ifndef BTS7960_DISABLE_ASSERTS
   assert(bts);
-#endif
+  #endif
 
   if (!bts->is_initialized) {
     return BTS7960_NOT_INITIALIZED;
   }
 
   switch (BTS7960_HAL_setPwmSignalFrequency(bts->hal, frequency)) {
-    case BTS7960_HAL_FREQUENCY_OK:
-      return BTS7960_OK;
-    case BTS7960_HAL_FREQUENCY_TOO_LOW:
-      return BTS7960_FREQUENCY_TOO_LOW;
-    case BTS7960_HAL_FREQUENCY_TOO_HIGH:
-      return BTS7960_FREQUENCY_TOO_HIGH;
+    case BTS7960_HAL_FREQUENCY_OK:       return BTS7960_OK;
+    case BTS7960_HAL_FREQUENCY_TOO_LOW:  return BTS7960_FREQUENCY_TOO_LOW;
+    case BTS7960_HAL_FREQUENCY_TOO_HIGH: return BTS7960_FREQUENCY_TOO_HIGH;
   }
 
-#ifndef BTS7960_DISABLE_ASSERTS
+  #ifndef BTS7960_DISABLE_ASSERTS
   assert(false && "This should be unreachable, did you modify setPwmSignalFrequency?");
-#endif
+  #endif
 }
 
 BTS7960_Result BTS7960_getOutputFrequency(BTS7960 const *const bts, uint32_t *const frequency) {
-#ifndef BTS7960_DISABLE_ASSERTS
+  #ifndef BTS7960_DISABLE_ASSERTS
   assert(bts);
   assert(frequency);
-#endif
+  #endif
 
   if (!bts->is_initialized) {
     return BTS7960_NOT_INITIALIZED;

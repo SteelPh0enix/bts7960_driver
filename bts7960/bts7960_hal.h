@@ -2,19 +2,19 @@
 
 /// @file bts7960_hal.h
 /// BTS7690 hardware abstraction layer
-/// You have to provide an implementation of BTS_7960_HAL structure, and all the related functions
-/// yourself. You can either use a pre-existing implementation, or provide your own.
-/// Implementation must be linked manually.
-/// The driver checks for trival issues, like usage of uninitialized driver or NULL arguments.
-/// HAL should only take care of hardware state validation.
-/// It's recommended to store informations about errors in HAL structure for error handling or
-/// debugging. HAL implementation may also provide additional functions, for example PWM frequency
-/// control, if available on target platform.
-/// @important **HAL instance must be initialized manually by the user before using BTS7960
-///            driver!**
-/// @note When using high-frequency PWM as input: BTS7960 input signal frequency limit depends on
-///       the selected slew resistor value, see the datasheet section `4.2.2 Switching Times` for
-///       more details.
+/// You have to provide an implementation of BTS_7960_HAL structure, and all the related functions yourself. You can
+/// either use a pre-existing implementation, or provide your own. Implementation must be linked manually.
+///
+/// The driver checks for trival issues, like usage of uninitialized driver or NULL arguments. HAL should only take care
+/// of hardware state validation. It's recommended to store informations about errors in HAL structure for error
+/// handling or debugging.
+///
+/// HAL implementation may provide additional functions, for example PWM frequency control,
+/// if available on target platform.
+///
+/// @important **HAL instance must be initialized manually by the user before using BTS7960 driver!**
+/// @note When using high-frequency PWM as input: BTS7960 input signal frequency limit depends on the selected slew
+///       resistor value, see the datasheet section `4.2.2 Switching Times` for more details.
 
 #include <stdbool.h>
 #include <stdint.h>
@@ -84,13 +84,12 @@ bool BTS7960_HAL_getPwmSignalPercentage(BTS7960_HAL *const hal, uint8_t *const p
 /// @retval BTS7960_HAL_FREQUENCY_OK PWM signal frequency has been set.
 /// @retval BTS7960_HAL_FREQUENCY_TOO_LOW Requested PWM signal frequency is too low.
 /// @retval BTS7960_HAL_FREQUENCY_TOO_HIGH Requested PWM signal frequency is too high.
-BTS7960_FrequencyStatus BTS7960_HAL_setPwmSignalFrequency(BTS7960_HAL *const hal,
-                                                          uint32_t const frequency);
+BTS7960_FrequencyStatus BTS7960_HAL_setPwmSignalFrequency(BTS7960_HAL *const hal, uint32_t const frequency);
 
 /// Gets the PWM signal frequency.
 /// @param[in] hal Initialized BTS7960 HAL instance.
 /// @param[out] frequency Frequency of the PWM signal.
 /// @retval true PWM signal frequency has been fetched.
 /// @retval false Couldn't fetch the PWM signal frequency.
-bool BTS7960_HAL_getPwmSignalFrequency(BTS7960_HAL *const hal, uint32_t *const frequency);
+bool                    BTS7960_HAL_getPwmSignalFrequency(BTS7960_HAL *const hal, uint32_t *const frequency);
 #endif
