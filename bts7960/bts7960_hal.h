@@ -5,6 +5,8 @@
 /// You have to provide an implementation of BTS_7960_HAL structure, and all the related functions
 /// yourself. You can either use a pre-existing implementation, or provide your own.
 /// Implementation must be linked manually.
+/// The driver checks for trival issues, like usage of uninitialized driver or NULL arguments.
+/// HAL should only take care of hardware state validation.
 /// It's recommended to store informations about errors in HAL structure for error handling or
 /// debugging. HAL implementation may also provide additional functions, for example PWM frequency
 /// control, if available on target platform.
