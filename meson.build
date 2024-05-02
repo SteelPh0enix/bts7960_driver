@@ -1,3 +1,9 @@
+# Main build script for BTS7960 test framework.
+#
+# Only the driver instances that can be unit-tested should be built here.
+# I assume that real instances may require external libraries for their HAL
+# implementations, that this project will not provide.
+
 project(
   'bts7960',
   'c',
@@ -14,6 +20,7 @@ project(
 )
 
 bts7960_sources = files('./bts7960/bts7960.c')
+bts7960_includes = include_directories('./bts7960/')
 bts7960_hals = {
   'mock': {
     'sources': ['./bts7960/hal-impls/mock.c'],
@@ -36,6 +43,7 @@ bts7960_instances = {}
 foreach hal_name, hal_props : bts7960_hals
   hal_sources = hal_props['sources']
   c_cpp_args = []
+  hal_defines = []
 
   if 'defines' in hal_props
     hal_defines = hal_props['defines']
@@ -45,12 +53,17 @@ foreach hal_name, hal_props : bts7960_hals
   endif
 
   bts7960_instances += {
-    hal_name: library(
-      f'bts7960_@hal_name@',
-      bts7960_sources + hal_sources,
-      include_directories: ['./bts7960/'],
-      c_args: c_cpp_args,
-      cpp_args: c_cpp_args,
-    ),
+    hal_name: {
+      'library': library(
+        f'bts7960_@hal_name@',
+        bts7960_sources + hal_sources,
+        include_directories: bts7960_includes,
+        c_args: c_cpp_args,
+        cpp_args: c_cpp_args,
+      ),
+      'defines': hal_defines,
+    }
   }
 endforeach
+
+subdir('tests')
