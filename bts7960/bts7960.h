@@ -66,6 +66,7 @@ typedef enum BTS7960_Result_t {
   BTS7960_ERROR_FREQUENCY_TOO_LOW,    ///< The frequency is too low for the hardware to generate.
   BTS7960_ERROR_FREQUENCY_TOO_HIGH,   ///< The frequency is too high for the hardware to generate.
 #endif
+  BTS7960_INTERNAL_ERROR,  ///< Internal library error, this should never be returned under normal circumstances.
 } BTS7960_Result;
 
 /// Default current sense resistor value.

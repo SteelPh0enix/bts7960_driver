@@ -228,6 +228,8 @@ BTS7960_Result BTS7960_setOutputFrequency(BTS7960 *const bts, uint32_t const fre
   #ifndef BTS7960_DISABLE_ASSERTS
   assert(false && "This should be unreachable, did you modify setPwmSignalFrequency?");
   #endif
+
+  return BTS7960_INTERNAL_ERROR;
 }
 
 BTS7960_Result BTS7960_getOutputFrequency(BTS7960 const *const bts, uint32_t *const frequency) {
