@@ -5,8 +5,8 @@
 #include "bts7960_hal.h"
 
 #ifdef BTS7960_ENABLE_FREQUENCY_CONTROL
-uint32_t static const BTS7960_HAL_MOCK_DEFAULT_MIN_ALLOWED_FREQUENCY = 1000;
-uint32_t static const BTS7960_HAL_MOCK_DEFAULT_MAX_ALLOWED_FREQUENCY = 100000;
+static uint32_t const BTS7960_HAL_MOCK_DEFAULT_MIN_ALLOWED_FREQUENCY = 1000;
+static uint32_t const BTS7960_HAL_MOCK_DEFAULT_MAX_ALLOWED_FREQUENCY = 100000;
 #endif
 
 struct BTS7960_HAL_impl {
@@ -175,7 +175,7 @@ bool BTS7960_HAL_getPwmSignalPercentage(BTS7960_HAL *const hal, uint8_t *const p
 }
 
 #ifdef BTS7960_ENABLE_FREQUENCY_CONTROL
-BTS7960_FrequencyStatus BTS7960_HAL_setPwmSignalFrequency(BTS7960_HAL *const hal, uint32_t const frequency) {
+BTS7960_HAL_FrequencyStatus BTS7960_HAL_setPwmSignalFrequency(BTS7960_HAL *const hal, uint32_t const frequency) {
   if (hal->should_set_pwm_signal_frequency_succeed) {
     hal->pwm_signal_frequency = frequency;
   }

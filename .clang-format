@@ -110,7 +110,7 @@ PPIndentWidth: -1
 PackConstructorInitializers: NextLine
 PointerAlignment: Right
 QualifierAlignment: Custom
-QualifierOrder: ['restrict', 'volatile', 'friend', 'type', 'static', 'inline', 'constexpr', 'const']
+QualifierOrder: ['static', 'restrict', 'volatile', 'friend', 'type', 'inline', 'constexpr', 'const']
 ReferenceAlignment: Right
 ReflowComments: true
 RemoveParentheses: Leave

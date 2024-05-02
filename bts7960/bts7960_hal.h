@@ -84,12 +84,12 @@ bool BTS7960_HAL_getPwmSignalPercentage(BTS7960_HAL *const hal, uint8_t *const p
 /// @retval BTS7960_HAL_FREQUENCY_OK PWM signal frequency has been set.
 /// @retval BTS7960_HAL_FREQUENCY_TOO_LOW Requested PWM signal frequency is too low.
 /// @retval BTS7960_HAL_FREQUENCY_TOO_HIGH Requested PWM signal frequency is too high.
-BTS7960_FrequencyStatus BTS7960_HAL_setPwmSignalFrequency(BTS7960_HAL *const hal, uint32_t const frequency);
+BTS7960_HAL_FrequencyStatus BTS7960_HAL_setPwmSignalFrequency(BTS7960_HAL *const hal, uint32_t const frequency);
 
 /// Gets the PWM signal frequency.
 /// @param[in] hal Initialized BTS7960 HAL instance.
 /// @param[out] frequency Frequency of the PWM signal.
 /// @retval true PWM signal frequency has been fetched.
 /// @retval false Couldn't fetch the PWM signal frequency.
-bool                    BTS7960_HAL_getPwmSignalFrequency(BTS7960_HAL *const hal, uint32_t *const frequency);
+bool                        BTS7960_HAL_getPwmSignalFrequency(BTS7960_HAL *const hal, uint32_t *const frequency);
 #endif
