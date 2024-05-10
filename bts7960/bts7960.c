@@ -1,6 +1,7 @@
 #include "bts7960.h"
 
 #include <stddef.h>
+#include <string.h>
 
 #ifndef BTS7960_DISABLE_ASSERTS
   #include <assert.h>
@@ -65,17 +66,7 @@ BTS7960_Result BTS7960_deInitialize(BTS7960 *const bts) {
     return BTS7960_HAL_ERROR;
   }
 
-  bts->is_initialized           = false;
-  bts->hal                      = NULL;
-  bts->current_sense_resistance = 0;
-  bts->fault_voltage            = 0;
-  bts->fault_voltage_epsilon    = 0;
-  bts->fault_voltage_min        = 0;
-  bts->current_sense_multiplier = 0;
-  bts->current_sense_ratio      = 0;
-  bts->current_in_fault_mode    = 0;
-  bts->fault_voltage_tolerance  = 0;
-
+  memset(bts, 0, sizeof(BTS7960));
   return BTS7960_OK;
 }
 
