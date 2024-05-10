@@ -78,13 +78,13 @@ extern "C"
   static uint32_t const BTS7960_DEFAULT_CURRENT_SENSE_RESISTANCE = 1000;
 
   /// Default current sense ratio.
-  static uint16_t const BTS7960_DEFAULT_CURRENT_SENSE_RATIO      = 8500;
+  static uint16_t const BTS7960_DEFAULT_CURRENT_SENSE_RATIO = 8500;
 
   /// Default current on current sense pin in fault mode (in microamperes).
-  static uint16_t const BTS7960_DEFAULT_CURRENT_IN_FAULT_MODE    = 4500;
+  static uint16_t const BTS7960_DEFAULT_CURRENT_IN_FAULT_MODE = 4500;
 
   /// Default fault voltage tolerance, in percent.
-  static uint8_t const  BTS7960_DEFAULT_FAULT_VOLTAGE_TOLERANCE  = 5;
+  static uint8_t const BTS7960_DEFAULT_FAULT_VOLTAGE_TOLERANCE = 5;
 
   /// Initializes the driver structure and underlying hardware with default BTS7960 configuration.
   /// @important Provided HAL instance should be initialized manually by the user before passing it to this function.
@@ -96,7 +96,7 @@ extern "C"
   /// @retval BTS7960_OK If initialization was successful.
   /// @retval BTS7960_ALREADY_INITIALIZED If the instance is already initialized.
   /// @retval BTS7960_HAL_ERROR If initialization failed due to an internal HAL error.
-  BTS7960_Result        BTS7960_initialize(BTS7960 *const bts, BTS7960_HAL *const hal);
+  BTS7960_Result BTS7960_initialize(BTS7960 *const bts, BTS7960_HAL *const hal);
 
   /// Initializes the driver structure and underlying hardware with custom BTS7960 configuration.
   /// @important Provided HAL instance should be initialized manually by the user before passing it to this function.
@@ -115,33 +115,33 @@ extern "C"
   /// @retval BTS7960_ALREADY_INITIALIZED If the instance is already initialized.
   /// @retval BTS7960_HAL_ERROR If initialization failed due to an internal HAL
   /// error.
-  BTS7960_Result        BTS7960_advancedInitialize(BTS7960 *const     bts,
-                                                   BTS7960_HAL *const hal,
-                                                   uint32_t const     current_sense_resistance,
-                                                   uint16_t const     current_sense_ratio,
-                                                   uint16_t const     current_in_fault_mode,
-                                                   uint8_t const      fault_voltage_tolerance);
+  BTS7960_Result BTS7960_advancedInitialize(BTS7960 *const     bts,
+                                            BTS7960_HAL *const hal,
+                                            uint32_t const     current_sense_resistance,
+                                            uint16_t const     current_sense_ratio,
+                                            uint16_t const     current_in_fault_mode,
+                                            uint8_t const      fault_voltage_tolerance);
 
   /// De-initialize the driver, freeing the underlying hardware.
   /// @param[in] bts Pointer to BTS7960 driver instance.
   /// @retval BTS7960_OK If de-initialization was successful.
   /// @retval BTS7690_NOT_INITIALIZED If driver is not initialized.
   /// @retval BTS7960_HAL_ERROR If de-initialization failed due to an internal HAL error.
-  BTS7960_Result        BTS7960_deInitialize(BTS7960 *const bts);
+  BTS7960_Result BTS7960_deInitialize(BTS7960 *const bts);
 
   /// Enables the driver's output.
   /// @param[in] bts Pointer to BTS7960 driver instance.
   /// @retval BTS7960_OK If enabling succeeded.
   /// @retval BTS7690_NOT_INITIALIZED If driver is not initialized.
   /// @retval BTS7960_HAL_ERROR If enabling failed due to an internal HAL error.
-  BTS7960_Result        BTS7960_enable(BTS7960 *const bts);
+  BTS7960_Result BTS7960_enable(BTS7960 *const bts);
 
   /// Disables the driver's output.
   /// @param[in] bts Pointer to BTS7960 driver instance.
   /// @retval BTS7960_OK If disabling succeeded.
   /// @retval BTS7690_NOT_INITIALIZED If driver is not initialized.
   /// @retval BTS7960_HAL_ERROR If disabling failed due to an internal HAL error.
-  BTS7960_Result        BTS7960_disable(BTS7960 *const bts);
+  BTS7960_Result BTS7960_disable(BTS7960 *const bts);
 
   /// Checks if the driver is currently enabled.
   /// Output parameters are cleared/set to 0 on error.
@@ -150,7 +150,7 @@ extern "C"
   /// @retval BTS7960_OK If getting the status succeeded.
   /// @retval BTS7690_NOT_INITIALIZED If driver is not initialized.
   /// @retval BTS7960_HAL_ERROR If getting the status failed due to an internal HAL error.
-  BTS7960_Result        BTS7960_isEnabled(BTS7960 const *const bts, bool *const status);
+  BTS7960_Result BTS7960_isEnabled(BTS7960 const *const bts, bool *const status);
 
   /// Measures the current flowing through BTS7960 driver and returns it (in
   /// milliamps). Also informs if a fault happened. Output parameters are set to 0
@@ -162,7 +162,7 @@ extern "C"
   /// @retval BTS7960_FAULT_DETECTED If a driver's fault is detected.
   /// @retval BTS7690_NOT_INITIALIZED If driver is not initialized.
   /// @retval BTS7960_HAL_ERROR If getting the status failed due to an internal HAL error.
-  BTS7960_Result        BTS7960_getStatus(BTS7960 const *const bts, BTS7960_Status *const status);
+  BTS7960_Result BTS7960_getStatus(BTS7960 const *const bts, BTS7960_Status *const status);
 
   /// Sets the power output of driver in 0-100% range.
   /// @param[in] bts Pointer to BTS7960 driver instance.
@@ -171,7 +171,7 @@ extern "C"
   /// @retval BTS7690_NOT_INITIALIZED If driver is not initialized.
   /// @retval BTS7960_ERROR_INVALID_POWER_VALUE If `percent` is outside of [0, 100] range.
   /// @retval BTS7960_HAL_ERROR If setting the power failed due to an internal HAL error.
-  BTS7960_Result        BTS7960_setPowerPercentage(BTS7960 *const bts, uint8_t const percent);
+  BTS7960_Result BTS7960_setPowerPercentage(BTS7960 *const bts, uint8_t const percent);
 
   /// Gets current power output of BTS7960 in 0-100[%] range (with integer
   /// precision). Output parameters are cleared/set to 0 on error.
@@ -180,7 +180,7 @@ extern "C"
   /// @retval BTS7960_OK If getting the power succeeded.
   /// @retval BTS7690_NOT_INITIALIZED If driver is not initialized.
   /// @retval BTS7960_HAL_ERROR If getting the power failed due to an internal HAL error.
-  BTS7960_Result        BTS7960_getPowerPercentage(BTS7960 const *const bts, uint8_t *const percentage);
+  BTS7960_Result BTS7960_getPowerPercentage(BTS7960 const *const bts, uint8_t *const percentage);
 
 #ifdef BTS7960_ENABLE_FREQUENCY_CONTROL
   /// Sets the output signal frequency.

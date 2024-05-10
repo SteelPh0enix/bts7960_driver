@@ -3,26 +3,26 @@ AlignAfterOpenBracket: Align
 AlignArrayOfStructures: Left
 AlignConsecutiveAssignments:
   Enabled: true
-  AcrossEmptyLines: true
+  AcrossEmptyLines: false
   AcrossComments: true
   AlignCompound: true
   PadOperators: false
 AlignConsecutiveBitFields:
   Enabled: true
-  AcrossEmptyLines: true
+  AcrossEmptyLines: false
   AcrossComments: true
 AlignConsecutiveDeclarations:
   Enabled: true
-  AcrossEmptyLines: true
+  AcrossEmptyLines: false
   AcrossComments: true
   AlignFunctionPointers: false
 AlignConsecutiveMacros:
   Enabled: true
-  AcrossEmptyLines: true
+  AcrossEmptyLines: false
   AcrossComments: true
 AlignConsecutiveShortCaseStatements:
   Enabled: true
-  AcrossEmptyLines: true
+  AcrossEmptyLines: false
   AcrossComments: true
   AlignCaseColons: false
 AlignEscapedNewlines: Left
@@ -110,7 +110,7 @@ PPIndentWidth: -1
 PackConstructorInitializers: NextLine
 PointerAlignment: Right
 QualifierAlignment: Custom
-QualifierOrder: ['static', 'restrict', 'volatile', 'friend', 'type', 'inline', 'constexpr', 'const']
+QualifierOrder: ['constexpr', 'static', 'restrict', 'volatile', 'friend', 'inline',  'type', 'const']
 ReferenceAlignment: Right
 ReflowComments: true
 RemoveParentheses: Leave

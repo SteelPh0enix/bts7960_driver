@@ -96,7 +96,7 @@ extern "C"
   /// @param[out] frequency Frequency of the PWM signal.
   /// @retval true PWM signal frequency has been fetched.
   /// @retval false Couldn't fetch the PWM signal frequency.
-  bool                        BTS7960_HAL_getPwmSignalFrequency(BTS7960_HAL *const hal, uint32_t *const frequency);
+  bool BTS7960_HAL_getPwmSignalFrequency(BTS7960_HAL *const hal, uint32_t *const frequency);
 #endif
 
 #ifdef __cplusplus
