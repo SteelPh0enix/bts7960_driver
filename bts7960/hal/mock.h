@@ -3,7 +3,7 @@
 /// This mock functions as an fully-configurable software simulation of BTS7960 HAL.
 #pragma once
 
-#include "bts7960_hal.h"
+#include "../bts7960_hal.h"
 
 #include <stdbool.h>
 #include <stdint.h>

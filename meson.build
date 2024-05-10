@@ -20,7 +20,7 @@ project(
 )
 
 bts7960_sources = files('./bts7960/bts7960.c')
-bts7960_includes = include_directories('./bts7960/')
+bts7960_includes = include_directories('.')
 bts7960_hals = {
   'mock': {
     'sources': ['./bts7960/hal/mock.c'],
@@ -62,7 +62,7 @@ foreach hal_name, hal_props : bts7960_hals
         cpp_args: c_cpp_args,
       ),
       'defines': hal_defines,
-    }
+    },
   }
 endforeach
 
