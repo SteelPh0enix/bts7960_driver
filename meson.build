@@ -23,18 +23,18 @@ bts7960_sources = files('./bts7960/bts7960.c')
 bts7960_includes = include_directories('./bts7960/')
 bts7960_hals = {
   'mock': {
-    'sources': ['./bts7960/hal-impls/mock.c'],
+    'sources': ['./bts7960/hal/mock.c'],
   },
   'mock_freq': {
-    'sources': ['./bts7960/hal-impls/mock.c'],
+    'sources': ['./bts7960/hal/mock.c'],
     'defines': ['BTS7960_ENABLE_FREQUENCY_CONTROL'],
   },
   'mock_no_asserts': {
-    'sources': ['./bts7960/hal-impls/mock.c'],
+    'sources': ['./bts7960/hal/mock.c'],
     'defines': ['BTS7960_DISABLE_ASSERTS'],
   },
   'mock_freq_no_asserts': {
-    'sources': ['./bts7960/hal-impls/mock.c'],
+    'sources': ['./bts7960/hal/mock.c'],
     'defines': ['BTS7960_DISABLE_ASSERTS', 'BTS7960_ENABLE_FREQUENCY_CONTROL'],
   },
 }
