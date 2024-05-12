@@ -40,21 +40,6 @@ extern "C"
 #endif
   };
 
-  void BTS7960_HALMock_setShouldInitSucceed(BTS7960_HAL *const hal, bool const should_succeed);
-  void BTS7960_HALMock_setShouldDeInitSucceed(BTS7960_HAL *const hal, bool const should_succeed);
-  void BTS7960_HALMock_setShouldSetEnablePinStateSucceed(BTS7960_HAL *const hal, bool const should_succeed);
-  void BTS7960_HALMock_setShouldGetEnablePinStateSucceed(BTS7960_HAL *const hal, bool const should_succeed);
-  void BTS7960_HALMock_setShouldMeasureCurrentSenseVoltageSucceed(BTS7960_HAL *const hal, bool const should_succeed);
-  void BTS7960_HALMock_setShouldSetPwmSignalPercentageSucceed(BTS7960_HAL *const hal, bool const should_succeed);
-  void BTS7960_HALMock_setShouldGetPwmSignalPercentageSucceed(BTS7960_HAL *const hal, bool const should_succeed);
-#ifdef BTS7960_ENABLE_FREQUENCY_CONTROL
-  void BTS7960_HALMock_setMinAllowedPwmSignalFrequency(BTS7960_HAL *const hal, uint32_t const frequency);
-  void BTS7960_HALMock_setMaxAllowedPwmSignalFrequency(BTS7960_HAL *const hal, uint32_t const frequency);
-  void BTS7960_HALMock_setShouldSetPwmSignalFrequencySucceed(BTS7960_HAL *const hal, bool const should_succeed);
-  void BTS7960_HALMock_setShouldGetPwmSignalFrequencySucceed(BTS7960_HAL *const hal, bool const should_succeed);
-#endif
-  void BTS7960_HALMock_setCurrentSenseVoltage(BTS7960_HAL *const hal, uint32_t const voltage);
-
 #ifdef __cplusplus
 }
 #endif

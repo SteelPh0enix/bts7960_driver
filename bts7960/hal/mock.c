@@ -4,56 +4,6 @@
 
 #include "mock.h"
 
-void BTS7960_HALMock_setShouldInitSucceed(BTS7960_HAL *const hal, bool const should_succeed) {
-  hal->should_init_succeed = should_succeed;
-}
-
-void BTS7960_HALMock_setShouldDeInitSucceed(BTS7960_HAL *const hal, bool const should_succeed) {
-  hal->should_deinit_succeed = should_succeed;
-}
-
-void BTS7960_HALMock_setShouldSetEnablePinStateSucceed(BTS7960_HAL *const hal, bool const should_succeed) {
-  hal->should_set_enable_pin_state_succeed = should_succeed;
-}
-
-void BTS7960_HALMock_setShouldGetEnablePinStateSucceed(BTS7960_HAL *const hal, bool const should_succeed) {
-  hal->should_get_enable_pin_state_succeed = should_succeed;
-}
-
-void BTS7960_HALMock_setShouldMeasureCurrentSenseVoltageSucceed(BTS7960_HAL *const hal, bool const should_succeed) {
-  hal->should_measure_current_sense_voltage_succeed = should_succeed;
-}
-
-void BTS7960_HALMock_setShouldSetPwmSignalPercentageSucceed(BTS7960_HAL *const hal, bool const should_succeed) {
-  hal->should_set_pwm_signal_percentage_succeed = should_succeed;
-}
-
-void BTS7960_HALMock_setShouldGetPwmSignalPercentageSucceed(BTS7960_HAL *const hal, bool const should_succeed) {
-  hal->should_get_pwm_signal_percentage_succeed = should_succeed;
-}
-
-#ifdef BTS7960_ENABLE_FREQUENCY_CONTROL
-void BTS7960_HALMock_setMinAllowedPwmSignalFrequency(BTS7960_HAL *const hal, uint32_t const frequency) {
-  hal->min_allowed_frequency = frequency;
-}
-
-void BTS7960_HALMock_setMaxAllowedPwmSignalFrequency(BTS7960_HAL *const hal, uint32_t const frequency) {
-  hal->max_allowed_frequency = frequency;
-}
-
-void BTS7960_HALMock_setShouldSetPwmSignalFrequencySucceed(BTS7960_HAL *const hal, bool const should_succeed) {
-  hal->should_set_pwm_signal_frequency_succeed = should_succeed;
-}
-
-void BTS7960_HALMock_setShouldGetPwmSignalFrequencySucceed(BTS7960_HAL *const hal, bool const should_succeed) {
-  hal->should_get_pwm_signal_frequency_succeed = should_succeed;
-}
-#endif
-
-void BTS7960_HALMock_setCurrentSenseVoltage(BTS7960_HAL *const hal, uint32_t const voltage) {
-  hal->current_sense_voltage = voltage;
-}
-
 bool BTS7960_HAL_initializeHardware(BTS7960_HAL *const hal) {
   if (hal->should_init_succeed) {
     hal->should_deinit_succeed                        = true;
